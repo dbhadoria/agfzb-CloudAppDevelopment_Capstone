@@ -18,10 +18,41 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <div class="navbar-header">
-                  <a class="navbar-brand" href="#">Online Course</a>
+                <a class="navbar-brand" href="#">Online Course</a>
             </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <!-- Navigation items for an authenticated user -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ user.first_name }}</a>
+                </li>
+                {% else %}
+                <!-- Navigation items for a guest user -->
+                <li class="nav-item">
+                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                        {% csrf_token %}
+                        <input type="text" class="form-control mr-sm-2" placeholder="Username" name="username">
+                        <input type="password" class="form-control mr-sm-2" placeholder="Password" name="password">
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'djangoapp:signup' %}">Signup</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/djangoapp/about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/djangoapp/contact">Contact Us</a>
+                </li>
+            </ul>
         </div>
     </nav>
+    
     <!--Add a dealer table here -->
 
     </body>
